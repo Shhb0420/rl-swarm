@@ -11,19 +11,19 @@ dataset_id_or_path: 'openai/gsm8k'
 
 # Training arguments
 max_steps: 110         # Lebih masuk akal dari 20 untuk pelatihan nyata
-gradient_accumulation_steps: 16  # Efektif batch size = 8 * per_device
+gradient_accumulation_steps: 8  # Efektif batch size = 8 * per_device
 gradient_checkpointing: true
 gradient_checkpointing_kwargs:
   use_reentrant: false
 learning_rate: 7.0e-7
 lr_scheduler_type: cosine
-warmup_ratio: 0.1      # warmup lebih banyak untuk stabilisasi
+warmup_ratio: 0.1      # Tambahkan warmup lebih banyak untuk stabilisasi
 
 per_device_train_batch_size: 1  # Supaya muat di GPU terbatas
 
 # GRPO arguments
 use_vllm: false        # VLLM kurang cocok untuk LoRA + training kecil
-num_generations: 2
+num_generations: 4
 beta: 0.01             # Reward lebih kuat agar GRPO belajar
 max_prompt_length: 128
 max_completion_length: 512
@@ -51,3 +51,4 @@ max_rounds: 10000
 
 # Output
 output_dir: runs/gsm8k/multinode/Qwen2.5-1.5B-Instruct-Gensyn-Swarm
+
